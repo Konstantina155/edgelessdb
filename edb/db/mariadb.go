@@ -301,16 +301,17 @@ func (d *Mariadb) configureStart() error {
 datadir=` + d.externalPath + `
 default-storage-engine=ROCKSDB
 enforce-storage-engine=ROCKSDB
-user=root
+user=konstantina
 bind-address=` + host + `
 port=` + port + `
+rocksdb_db_write_buffer_size=4MB
 skip-name-resolve
 thread-handling=pool-of-threads
 thread-pool-max-threads=` + strconv.Itoa(d.maxPoolThreads) + `
 require-secure-transport=1
-ssl-ca = "` + filepath.Join(d.internalPath, filenameCA) + `"
-ssl-cert = "` + filepath.Join(d.internalPath, filenameCert) + `"
-ssl-key = "` + filepath.Join(d.internalPath, filenameKey) + `"
+ssl-ca = "/home/konstantina/Desktop/Thesis/edgelessdb/ca-cert.pem"
+ssl-cert = "/home/konstantina/Desktop/Thesis/edgelessdb/cert.pem"
+ssl-key = "/home/konstantina/Desktop/Thesis/edgelessdb/ca-key.pem"
 `
 	if d.debug {
 		// If nothing is specified ONLY error-log is printed on stderr
@@ -337,7 +338,8 @@ binlog-format=ROW
 	} else {
 		// Redirect error-log to memfs
 		cnf += fmt.Sprintf("%v=%v\n", "log_error", filepath.Join(d.internalPath, FilenameErrorLog))
-		cnf += fmt.Sprintf("%v=%v\n", "rocksdb_db_log_dir", d.internalPath)
+		cnf += fmt.Sprintf("%v=%v\n", "rocksdb_db_log_dir", "/home/konstantina/Desktop/Thesis/") //d.internalPath
+		cnf += fmt.Sprintf("%v=%v\n", "rocksdb_db_write_buffer_size","4MB")
 	}
 	return d.writeFile(filenameCnf, []byte(cnf))
 }
@@ -397,7 +399,7 @@ func getConfigFromSQL(address string) (cert []byte, key crypto.PrivateKey, confi
 }
 
 func sqlOpen(address string) (*sql.DB, error) {
-	return sql.Open("mysql", "root@tcp("+address+")/")
+	return sql.Open("mysql", "konstantina@tcp("+address+")/")
 }
 
 func (d *Mariadb) printErrorLog(onlyPrintOnError bool) error {
