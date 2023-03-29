@@ -13,7 +13,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   libncurses-dev \
   libssl-dev \
   ninja-build \
-  zlib1g-dev
+  zlib1g-dev \
+  doxygen
 
 ARG erttag=v0.3.6
 ARG edbtag=v0.3.2
