@@ -17,9 +17,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 
 ARG erttag=v0.3.6
 ARG edbtag=v0.3.2
-RUN git clone -b $erttag --depth=1 https://github.com/edgelesssys/edgelessrt \
-  && git clone https://github.com/Konstantina155/edgelessdb \
-  && mkdir ertbuild edbbuild
+RUN git clone -b $edbtag --depth=1 https://github.com/edgelesssys/edgelessrt \
+    && git clone https://github.com/Konstantina155/edgelessdb \
+    && mkdir ertbuild ebdbuild
 
 # install ert
 RUN cd edgelessrt && export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct) && cd /ertbuild \
