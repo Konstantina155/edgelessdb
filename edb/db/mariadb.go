@@ -304,7 +304,6 @@ enforce-storage-engine=ROCKSDB
 user=root
 bind-address=` + host + `
 port=` + port + `
-rocksdb_db_write_buffer_size=4MB
 skip-name-resolve
 thread-handling=pool-of-threads
 thread-pool-max-threads=` + strconv.Itoa(d.maxPoolThreads) + `
