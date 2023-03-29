@@ -301,7 +301,7 @@ func (d *Mariadb) configureStart() error {
 datadir=` + d.externalPath + `
 default-storage-engine=ROCKSDB
 enforce-storage-engine=ROCKSDB
-user=konstantina
+user=root
 bind-address=` + host + `
 port=` + port + `
 rocksdb_db_write_buffer_size=4MB
@@ -398,7 +398,7 @@ func getConfigFromSQL(address string) (cert []byte, key crypto.PrivateKey, confi
 }
 
 func sqlOpen(address string) (*sql.DB, error) {
-	return sql.Open("mysql", "konstantina@tcp("+address+")/")
+	return sql.Open("mysql", "root@tcp("+address+")/")
 }
 
 func (d *Mariadb) printErrorLog(onlyPrintOnError bool) error {
