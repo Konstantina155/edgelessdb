@@ -338,8 +338,7 @@ binlog-format=ROW
 	} else {
 		// Redirect error-log to memfs
 		cnf += fmt.Sprintf("%v=%v\n", "log_error", filepath.Join(d.internalPath, FilenameErrorLog))
-		cnf += fmt.Sprintf("%v=%v\n", "rocksdb_db_log_dir", "/home/konstantina/Desktop/Thesis/") //d.internalPath
-		cnf += fmt.Sprintf("%v=%v\n", "rocksdb_db_write_buffer_size","4MB")
+		cnf += fmt.Sprintf("%v=%v\n", "rocksdb_db_log_dir", d.internalPath)
 	}
 	return d.writeFile(filenameCnf, []byte(cnf))
 }
