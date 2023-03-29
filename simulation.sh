@@ -1,0 +1,2 @@
+export OE_SIMULATION=1
+
