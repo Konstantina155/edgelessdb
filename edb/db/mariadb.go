@@ -301,7 +301,7 @@ func (d *Mariadb) configureStart() error {
 datadir=` + d.externalPath + `
 default-storage-engine=ROCKSDB
 enforce-storage-engine=ROCKSDB
-user=root
+user=konstantina
 rocksdb_db_write_buffer_size=4MB
 bind-address=` + host + `
 port=` + port + `
