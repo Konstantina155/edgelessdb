@@ -302,6 +302,7 @@ datadir=` + d.externalPath + `
 default-storage-engine=ROCKSDB
 enforce-storage-engine=ROCKSDB
 user=root
+rocksdb_db_write_buffer_size=4MB
 bind-address=` + host + `
 port=` + port + `
 skip-name-resolve
