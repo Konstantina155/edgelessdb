@@ -273,6 +273,7 @@ INSERT INTO $edgeless.config VALUES (%#x, %#x, %#x);
 datadir=` + d.externalPath + `
 default-storage-engine=ROCKSDB
 enforce-storage-engine=ROCKSDB
+rocksdb_db_write_buffer_size=4MB
 log-error =` + filepath.Join(d.internalPath, filenameBootstrapLog) + `
 bootstrap
 init-file=` + filepath.Join(d.internalPath, filenameInit) + `
