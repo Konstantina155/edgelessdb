@@ -309,9 +309,9 @@ skip-name-resolve
 thread-handling=pool-of-threads
 thread-pool-max-threads=` + strconv.Itoa(d.maxPoolThreads) + `
 require-secure-transport=1
-ssl-ca = "` + filepath.Join(d.internalPath, filenameCA) + `"
-ssl-cert = "` + filepath.Join(d.internalPath, filenameCert) + `"
-ssl-key = "` + filepath.Join(d.internalPath, filenameKey) + `"
+ssl-ca = "/home/konstantina/Desktop/Thesis/edgelessdb/ca-cert.pem"
+ssl-cert = "/home/konstantina/Desktop/Thesis/edgelessdb/cert.pem"
+ssl-key = "/home/konstantina/Desktop/Thesis/edgelessdb/ca-key.pem"
 `
 	if d.debug {
 		// If nothing is specified ONLY error-log is printed on stderr
