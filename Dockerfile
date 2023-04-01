@@ -17,7 +17,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   doxygen
 
 ARG erttag=v0.3.6
-ARG edbtag=v0.3.2.1
+ARG edbtag=v0.3.2.2
 RUN git clone -b $erttag --depth=1 https://github.com/edgelesssys/edgelessrt \
   && git clone -b $edbtag --depth=1 https://github.com/Konstantina155/edgelessdb \
   && mkdir ertbuild edbbuild
@@ -28,7 +28,7 @@ RUN cd edgelessrt && export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct) && cd /
   && ninja install
 
 # build edb
-RUN cd edgelessdb && export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct) && cd /edbbuild \
+RUN cd edgelessdb && git submodule update --init --recursive export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct) && cd /edbbuild \
   && . /opt/edgelessrt/share/openenclave/openenclaverc \
   && cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=OFF /edgelessdb \
   && make -j`nproc` edb-enclave
