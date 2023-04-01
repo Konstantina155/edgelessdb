@@ -17,7 +17,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   doxygen
 
 ARG erttag=v0.3.6
-ARG edbtag=v0.3.2
+ARG edbtag=v0.3.2.1
 RUN git clone -b $erttag --depth=1 https://github.com/edgelesssys/edgelessrt \
   && git clone -b $edbtag --depth=1 https://github.com/Konstantina155/edgelessdb \
   && mkdir ertbuild edbbuild
