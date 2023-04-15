@@ -17,10 +17,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   doxygen
 
 ARG erttag=v0.3.6
-ARG edbtag=v0.3.2.6
+ARG edbtag=v0.3.2
 RUN git clone -b $erttag --depth=1 https://github.com/edgelesssys/edgelessrt \
   && git clone -b $edbtag --depth=1 https://github.com/Konstantina155/edgelessdb \
   && mkdir ertbuild edbbuild
+
+RUN sed -i '/user=root/a\   rocksdb_db_write_buffer_size=4MB' ../edgelessdb/edb/db/mariadb.go
 
 # install ert
 RUN cd edgelessrt && git submodule update --init --recursive && export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct) && cd /ertbuild \
