@@ -22,7 +22,8 @@ RUN git clone -b $erttag --depth=1 https://github.com/edgelesssys/edgelessrt \
   && git clone -b $edbtag --depth=1 https://github.com/Konstantina155/edgelessdb \
   && mkdir ertbuild edbbuild
 
-RUN sed -i '/user=root/a\   rocksdb_db_write_buffer_size=4MB' ../edgelessdb/edb/db/mariadb.go
+ARG rocksdb_db_write_buffer_size
+RUN sed -i "/user=root/a\   rocksdb_db_write_buffer_size=$rocksdb_db_write_buffer_size" ../edgelessdb/edb/db/mariadb.go
 
 # install ert
 RUN cd edgelessrt && git submodule update --init --recursive && export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct) && cd /ertbuild \
