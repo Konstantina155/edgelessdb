@@ -23,6 +23,7 @@
 #include <iostream>
 #include <thread>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 using namespace ert;
