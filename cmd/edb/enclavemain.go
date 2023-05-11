@@ -68,20 +68,12 @@ func main() {
 		panic(err)
 	}
 
-	if files, err := os.ReadDir("/tmp"); err != nil {
+	if files, err := os.ReadDir("/tmp/"); err != nil {
 		panic("cannot read /tmp directory: " + err.Error())
 	}
 	rt.Log.Println("PRINTING LS OF /TMP")
 	for _, file := range files { 
-		rt.Log.Printf("/tmp contains: %s", file.Name())
-	}
-
-	if files, err := os.ReadDir("/memfs/tmp"); err != nil {
-		panic("cannot read /../tmp directory: " + err.Error())
-	}
-	rt.Log.Println("PRINTING LS OF /../TMP")
-	for _, file := range files { 
-		rt.Log.Printf("/../tmp contains: %s", file.Name())
+		rt.Log.Println(file.Name())
 	}
 	
 
