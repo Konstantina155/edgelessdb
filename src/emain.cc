@@ -88,8 +88,19 @@ int emain() {
   oe_register_syscall_hook(edgeless_syscall_hook);
 
   ert_args_t result = ert_get_args();
-  cout << "argv[0]: " << result.argv[0] << endl;
-  cout << "argv[1]: " << result.argv[1] << endl;
+  FILE *fptr;
+  char buffer[100];
+   
+  fptr = fopen(result.argv[1] , "r");
+  if(fptr == NULL) {
+    cout << "Error opening result.argv[1]!\n";
+    return EXIT_SUCCESS;
+  }
+  if(fgets(buffer, 100, fptr) != NULL) {
+    puts(buffer);
+  }
+  cout << "Content of result.argv[1] is: " << buffer << endl;
+  fclose(fptr);
 
   invokemain();
   return EXIT_SUCCESS;
