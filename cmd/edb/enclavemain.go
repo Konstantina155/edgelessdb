@@ -68,6 +68,23 @@ func main() {
 		panic(err)
 	}
 
+	if files, err := os.ReadDir("/tmp"); err != nil {
+		panic("cannot read /tmp directory: " + err.Error())
+	}
+	rt.Log.Println("PRINTING LS OF /TMP")
+	for _, file := range files { 
+		rt.Log.Println("/tmp contains: ", file.Name())
+	}
+
+	if files, err := os.ReadDir("/memfs/tmp"); err != nil {
+		panic("cannot read /../tmp directory: " + err.Error())
+	}
+	rt.Log.Println("PRINTING LS OF /../TMP")
+	for _, file := range files { 
+		rt.Log.Println("/../tmp contains: ", file.Name())
+	}
+	
+
 	// mount logDir from hostfs if set
 	if len(config.LogDir) > 0 {
 		absLogPath := enclaveAbsPath(config.LogDir)

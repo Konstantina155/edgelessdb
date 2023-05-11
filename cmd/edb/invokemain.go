@@ -20,12 +20,11 @@ import "C"
 import "github.com/edgelesssys/edgelessdb/edb/rt"
 
 //export invokemain
-func invokemain(char *contentCNF) {
+func invokemain() {
 	// Save original stdout & stderr before we ever launch MariaDB, as MariaDB will redirect it later on
 	if err := rt.SaveStdoutAndStderr(); err != nil {
 		panic(err)
 	}
-	rt.Log.Println(contentCNF);
 	main()
 }
 

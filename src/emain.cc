@@ -86,17 +86,7 @@ int emain(int argc, char** argv) {
 
   oe_register_syscall_hook(edgeless_syscall_hook);
 
-  cout << "File parameter passed: " << argv[1] << "\n";
-  FILE *fp;
-  fp = fopen(argv[1], "r");
-  cout << argv[1] << endl;
-  if (fp == NULL) {
-    cout << "File open failed\n";
-    return EXIT_FAILURE;
-  }
-  char buf[100];
-  fgets(buf, 100, fp);
-  invokemain(buf);
+  invokemain();
   return EXIT_SUCCESS;
 }
 
