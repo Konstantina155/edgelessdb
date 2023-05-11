@@ -22,6 +22,7 @@
 #include <cstring>
 #include <iostream>
 #include <thread>
+#include <fstream>
 
 using namespace std;
 using namespace ert;
@@ -88,19 +89,15 @@ int emain() {
   oe_register_syscall_hook(edgeless_syscall_hook);
 
   ert_args_t result = ert_get_args();
-  FILE *fptr;
-  char buffer[100];
-
-  fptr = fopen(result.argv[1] , "r");
-  if(fptr == NULL) {
-    cout << "Error opening " << result.argv[1] << "!\n";
-    return EXIT_SUCCESS;
-  }
-  if(fgets(buffer, 100, fptr) != NULL) {
-    puts(buffer);
-  }
-  cout << "Content of result.argv[1] is: " << buffer << endl;
-  fclose(fptr);
+  string line;
+  ifstream myfile (result.argv[1]);
+  if (myfile.is_open()){
+    while(getline(myfile,line)){
+      cout << line << '\n';
+    }
+    myfile.close();
+  } else
+    cout << "Unable to open file";
 
   invokemain();
   return EXIT_SUCCESS;
