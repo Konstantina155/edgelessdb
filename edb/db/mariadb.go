@@ -25,6 +25,8 @@
 	   "encoding/json"
 	   "encoding/pem"
 	   "errors"
+       "log"
+       "bufio"
 	   "fmt"
 	   "io/ioutil"
 	   "net"
@@ -294,8 +296,10 @@
    
    // configure MariaDB for regular start
    func (d *Mariadb) configureStart() error {
+   variable := "rocksdb_db_write_buffer_size=16MB"
 	   host, port := splitHostPort(d.externalAddress, "3306")
-   
+
+
 	   cnf := `
    [mysqld]
    datadir=` + d.externalPath + `
@@ -312,6 +316,8 @@
    ssl-cert = "` + filepath.Join(d.internalPath, filenameCert) + `"
    ssl-key = "` + filepath.Join(d.internalPath, filenameKey) + `"
    `
+   cnf += fmt.Sprintf("%v", variable)
+
 	   if d.debug {
 		   // If nothing is specified ONLY error-log is printed on stderr
 		   // Setting any of the logs without a file logs them to default files
