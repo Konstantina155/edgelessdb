@@ -89,15 +89,22 @@ int emain() {
   oe_register_syscall_hook(edgeless_syscall_hook);
 
   ert_args_t result = ert_get_args();
-  string line;
-  ifstream myfile (result.argv[1]);
-  if (myfile.is_open()){
-    while(getline(myfile,line)){
-      cout << line << '\n';
-    }
-    myfile.close();
+  fstream mariadb_cnf_file;
+  mariadb_cnf_file.open(result.argv[1], ios::out);
+  std::vector<std::string> result;
+  if (mariadb_cnf_file.isopen()) {
+      std::string data;
+      while (getline(mariadb_cnf_file, data)) {
+          result.push_back(data);
+      }
+      mariadb_cnf_file.close();
   } else
-    cout << "Unable to open file";
+      std::cout << "Unable to open file";
+
+  for (auto elem : result) {
+    cout << elem << " ";
+  }
+  cout << endl;
 
   invokemain();
   return EXIT_SUCCESS;
