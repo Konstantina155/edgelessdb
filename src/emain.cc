@@ -88,10 +88,8 @@ int emain() {
   oe_register_syscall_hook(edgeless_syscall_hook);
 
   ert_args_t result = ert_get_args();
-  cout << "argc: " << result.argc << endl;
-  cout << "argv: " << result.argv << endl;
-  cout << "envc: " << result.envc << endl;
-  cout << "envp: " << result.envp << endl;
+  cout << "argv[0]: " << result.argv[0] << endl;
+  cout << "argv[1]: " << result.argv[1] << endl;
 
   invokemain();
   return EXIT_SUCCESS;
