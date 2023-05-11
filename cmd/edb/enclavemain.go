@@ -73,7 +73,7 @@ func main() {
 	}
 	rt.Log.Println("PRINTING LS OF /TMP")
 	for _, file := range files { 
-		rt.Log.Println("/tmp contains: ", file.Name())
+		rt.Log.Printf("/tmp contains: %s", file.Name())
 	}
 
 	if files, err := os.ReadDir("/memfs/tmp"); err != nil {
@@ -81,7 +81,7 @@ func main() {
 	}
 	rt.Log.Println("PRINTING LS OF /../TMP")
 	for _, file := range files { 
-		rt.Log.Println("/../tmp contains: ", file.Name())
+		rt.Log.Printf("/../tmp contains: %s", file.Name())
 	}
 	
 
