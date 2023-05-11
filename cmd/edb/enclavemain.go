@@ -43,12 +43,6 @@ func main() {
 
 	rt.Log.Printf("EdgelessDB v%v (%v)\n", version, gitCommit)
 
-	absPath, err := filepath.Abs("mariadb.txt")
-  	if err != nil {
-    	panic(err)
-  	}
-	rt.Log.Printf("ContentCNF %v\n", absPath)
-
 	runAsMarble := flag.Bool("marble", false, "Run edb with Marblerun")
 	flag.Parse()
 

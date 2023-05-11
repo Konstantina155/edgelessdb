@@ -48,7 +48,7 @@ static int _init = [] {
   return 0;
 }();
 
-int emain(char **argv) {
+int emain() {
   // Preparing memfs
   const Memfs memfs(kMemfsName);
 
@@ -87,7 +87,11 @@ int emain(char **argv) {
 
   oe_register_syscall_hook(edgeless_syscall_hook);
 
-  cout << "Args are:" << argv[0] << " " << argv[1];
+  ert_args_t result = ert_get_args();
+  cout << "argc: " << result.argc << endl;
+  cout << "argv: " << result.argv << endl;
+  cout << "envc: " << result.envc << endl;
+  cout << "envp: " << result.envp << endl;
 
   invokemain();
   return EXIT_SUCCESS;
