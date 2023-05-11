@@ -43,6 +43,12 @@ func main() {
 
 	rt.Log.Printf("EdgelessDB v%v (%v)\n", version, gitCommit)
 
+	absPath, err := filepath.Abs("mariadb.txt")
+  	if err != nil {
+    	panic(err)
+  	}
+	rt.Log.Printf("ContentCNF %v\n", absPath)
+
 	runAsMarble := flag.Bool("marble", false, "Run edb with Marblerun")
 	flag.Parse()
 
@@ -67,12 +73,6 @@ func main() {
 	if err := os.Mkdir(internalPath, 0); err != nil {
 		panic(err)
 	}
-
-	absPath, err3 := filepath.Abs("mariadb.txt")
-  	if err3 != nil {
-    	panic("Mariadb.txt does not exist: " + err3.Error())
-  	}
-  	rt.Log.Printf("File exists: %v", absPath)
 	
 
 	// mount logDir from hostfs if set
