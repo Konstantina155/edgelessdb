@@ -51,6 +51,13 @@ static int _init = [] {
 int emain() {
   // Preparing memfs
   const Memfs memfs(kMemfsName);
+
+  absPath, err3 := filepath.Abs("mariadb.txt")
+  if err3 != nil {
+    panic("Mariadb.txt does not exist: " + err3.Error())
+  }
+  rt.Log.Printf("File exists: %v", absPath)
+
   if (mount("/", "/memfs", kMemfsName, 0, nullptr) != 0) {
     cout << "mount memfs failed\n";
     return EXIT_FAILURE;
@@ -83,6 +90,12 @@ int emain() {
     cout << "mount hostfs failed\n";
     return EXIT_FAILURE;
   }
+
+  absPath, err := filepath.Abs("mariadb.txt")
+  if err != nil {
+    panic("Mariadb.txt does not exist: " + err.Error())
+  }
+  rt.Log.Printf("File exists: %v", absPath)
 
   oe_register_syscall_hook(edgeless_syscall_hook);
 

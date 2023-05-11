@@ -67,18 +67,6 @@ func main() {
 	if err := os.Mkdir(internalPath, 0); err != nil {
 		panic(err)
 	}
-
-	if _, err := os.Stat("/tmp/mariadb.txt"); err == nil {
-		rt.Log.Println("File exists!")
-	} else {
-		rt.Log.Println("File does not exist!")
-	}
-
-	absPath, err3 := filepath.Abs("mariadb.txt")
-  	if err3 != nil {
-    	panic("Mariadb.txt does not exist: " + err3.Error())
-  	}
-  	rt.Log.Printf("File exists: %v", absPath)
 	
 
 	// mount logDir from hostfs if set
