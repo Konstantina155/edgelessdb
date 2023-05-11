@@ -48,7 +48,7 @@ static int _init = [] {
   return 0;
 }();
 
-int emain() {
+int emain(int argc, char** argv) {
   // Preparing memfs
   const Memfs memfs(kMemfsName);
   if (mount("/", "/memfs", kMemfsName, 0, nullptr) != 0) {
@@ -86,7 +86,16 @@ int emain() {
 
   oe_register_syscall_hook(edgeless_syscall_hook);
 
-  invokemain();
+  cout << "File parameter passed: " << argv[1] << "\n";
+  FILE *fp;
+  fp = fopen(argv[1], "r");
+  if (fp == NULL) {
+    cout << "File open failed\n";
+    return EXIT_FAILURE;
+  }
+  char buf[100];
+  fgets(buf, 100, fp);
+  invokemain(buf);
   return EXIT_SUCCESS;
 }
 

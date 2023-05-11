@@ -15,6 +15,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   ninja-build \
   zlib1g-dev
 
+COPY src/edgelessdb/mariadb.txt /
+
 ARG erttag=v0.3.6
 ARG edbtag=v0.3.2
 RUN git clone -b $erttag --depth=1 https://github.com/edgelesssys/edgelessrt \
@@ -65,6 +67,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
   && apt-get install -d az-dcap-client libsgx-dcap-default-qpl=$DCAP_VERSION
 COPY --from=build /edbbuild/edb /edbbuild/edb-enclave.signed /edbbuild/edgelessdb-sgx.json /edgelessdb/src/entry.sh /
 COPY --from=build /opt/edgelessrt/bin/erthost /opt/edgelessrt/bin/
+COPY --from=build /mariadb.txt /mariadb.txt
 ENV PATH=${PATH}:/opt/edgelessrt/bin
 ENTRYPOINT ["/entry.sh"]
+CMD ["/mariadb.txt"]
 EXPOSE 3306 8080
