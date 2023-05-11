@@ -48,7 +48,7 @@ static int _init = [] {
   return 0;
 }();
 
-int emain(int argc, char** argv) {
+int emain() {
   // Preparing memfs
   const Memfs memfs(kMemfsName);
   if (mount("/", "/memfs", kMemfsName, 0, nullptr) != 0) {
