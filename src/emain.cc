@@ -22,8 +22,6 @@
 #include <cstring>
 #include <iostream>
 #include <thread>
-#include <fstream>
-#include <vector>
 
 using namespace std;
 using namespace ert;
@@ -90,22 +88,15 @@ int emain() {
   oe_register_syscall_hook(edgeless_syscall_hook);
 
   ert_args_t result = ert_get_args();
-  fstream mariadb_cnf_file;
-  mariadb_cnf_file.open(result.argv[1], ios::out);
-  std::vector<std::string> result;
-  if (mariadb_cnf_file.isopen()) {
-      std::string data;
-      while (getline(mariadb_cnf_file, data)) {
-          result.push_back(data);
-      }
-      mariadb_cnf_file.close();
-  } else
-      std::cout << "Unable to open file";
-
-  for (auto elem : result) {
-    cout << elem << " ";
+  char mariadb_cnf_contents[1000];
+  FILE *fptr;
+  if ((fptr = fopen(result.argv[1], "r")) == NULL) {
+      printf("Error! File cannot be opened.");
+      return EXIT_FAILURE;
   }
-  cout << endl;
+  if (fgets(mariadb_cnf_contents,1000,fptr)){
+      cout << mariadb_cnf_contents << endl;
+  }
 
   invokemain();
   return EXIT_SUCCESS;
