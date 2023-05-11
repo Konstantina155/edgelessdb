@@ -90,10 +90,10 @@ int emain() {
   ert_args_t result = ert_get_args();
   FILE *fptr;
   char buffer[100];
-   
+
   fptr = fopen(result.argv[1] , "r");
   if(fptr == NULL) {
-    cout << "Error opening result.argv[1]!\n";
+    cout << "Error opening " << result.argv[1] << "!\n";
     return EXIT_SUCCESS;
   }
   if(fgets(buffer, 100, fptr) != NULL) {
