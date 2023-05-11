@@ -89,6 +89,7 @@ int emain(int argc, char** argv) {
   cout << "File parameter passed: " << argv[1] << "\n";
   FILE *fp;
   fp = fopen(argv[1], "r");
+  cout << argv[1] << endl;
   if (fp == NULL) {
     cout << "File open failed\n";
     return EXIT_FAILURE;
