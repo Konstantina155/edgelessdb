@@ -68,13 +68,17 @@ func main() {
 		panic(err)
 	}
 
-	if files, err := os.ReadDir("/tmp/"); err != nil {
-		panic("cannot read /tmp directory: " + err.Error())
+	if _, err := os.Stat("/tmp/mariadb.txt"); err == nil {
+		rt.Log.Println("File exists!")
+	} else {
+		rt.Log.Println("File does not exist!")
 	}
-	rt.Log.Println("PRINTING LS OF /TMP")
-	for _, file := range files { 
-		rt.Log.Println(file.Name())
-	}
+
+	absPath, err3 := filepath.Abs("mariadb.txt")
+  	if err3 != nil {
+    	panic("Mariadb.txt does not exist: " + err3.Error())
+  	}
+  	rt.Log.Printf("File exists: %v", absPath)
 	
 
 	// mount logDir from hostfs if set
