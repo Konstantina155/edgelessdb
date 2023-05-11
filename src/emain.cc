@@ -56,14 +56,14 @@ int emain() {
   //   cout << "mount memfs failed\n";
   //   return EXIT_FAILURE;
   // }
-  // if (mkdir("/memfs/tmp", 0777) == -1) {
-  //   cout << "creating directory '/memfs/tmp' failed: " << strerror(errno) << endl;
-  //   return EXIT_FAILURE;
-  // }
-  // if (mkdir("/memfs/data", 0777) == -1) {
-  //   cout << "creating directory '/memfs/data' failed: " << strerror(errno) << endl;
-  //   return EXIT_FAILURE;
-  // }
+  if (mkdir("/memfs/tmp", 0777) == -1) {
+    cout << "creating directory '/memfs/tmp' failed: " << strerror(errno) << endl;
+    return EXIT_FAILURE;
+  }
+  if (mkdir("/memfs/data", 0777) == -1) {
+    cout << "creating directory '/memfs/data' failed: " << strerror(errno) << endl;
+    return EXIT_FAILURE;
+  }
   // if (umount("/memfs") != 0) {
   //   cout << "umount memfs failed\n";
   //   return EXIT_FAILURE;
