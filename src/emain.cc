@@ -29,7 +29,6 @@ using namespace ert;
 
 static constexpr auto kMemfsName = "edg_memfs";
 
-extern "C" void invokemain();
 extern "C" oe_result_t edgeless_syscall_hook();
 extern "C" void oe_register_syscall_hook(oe_result_t());
 

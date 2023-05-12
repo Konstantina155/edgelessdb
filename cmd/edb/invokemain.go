@@ -16,7 +16,6 @@
 package main
 
 // extern int edgeless_exit_ensure_link;
-import "C"
 import "github.com/edgelesssys/edgelessdb/edb/rt"
 
 //export invokemain
