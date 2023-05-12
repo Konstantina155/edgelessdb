@@ -22,7 +22,15 @@
 #include <cstring>
 #include <iostream>
 #include <thread>
+
 #include <fstream>
+#include <fcntl.h>
+#include <sys/syscall.h>
+#include <cstdarg>
+#include <functional>
+#include <map>
+#include "oe_internal.h"
+#include "syscall_handler.h"
 
 using namespace std;
 using namespace ert;
@@ -89,13 +97,11 @@ int emain() {
 
   ert_args_t result = ert_get_args();
   
-  ifstream fin(result.argv[1]);
-  string mariadb_cnf_contents;
-
-  cout << "Contents of: " << result.argv[1] << endl;
-  while (fin >> mariadb_cnf_contents){
-      cout << mariadb_cnf_contents << endl;
-  }
+  assert(2 == handler.Syscall(SYS_open, reinterpret_cast<long>(result.argv[1]), 0));
+  string out(in.size(), '\0');
+  assert(3 == file->ops.fd.read(file, out.data(), out.size()));
+  assert(0 == file->ops.fd.close(file));
+  cout << "config file content: " << out << endl;
 
   invokemain();
   return EXIT_SUCCESS;
@@ -139,4 +145,8 @@ ert_args_t ert_get_args() {
 
 extern "C" int OPENSSL_rdtsc() {
   return 0;  // not available
+}
+
+int oe_fdtable_assign(oe_fd_t* /*desc*/) {
+  ASSERT(false);
 }
