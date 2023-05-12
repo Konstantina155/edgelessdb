@@ -25,6 +25,7 @@ func invokemain() {
 	if err := rt.SaveStdoutAndStderr(); err != nil {
 		panic(err)
 	}
+	
 	main()
 }
 

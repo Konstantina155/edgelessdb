@@ -42,7 +42,7 @@ func main() {
 	runtime.GOMAXPROCS(2)
 
 	rt.Log.Printf("EdgelessDB v%v (%v)\n", version, gitCommit)
-
+	
 	runAsMarble := flag.Bool("marble", false, "Run edb with Marblerun")
 	flag.Parse()
 
@@ -67,7 +67,6 @@ func main() {
 	if err := os.Mkdir(internalPath, 0); err != nil {
 		panic(err)
 	}
-	
 
 	// mount logDir from hostfs if set
 	if len(config.LogDir) > 0 {

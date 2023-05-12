@@ -89,17 +89,13 @@ int emain() {
 
   ert_args_t result = ert_get_args();
   
-  char mariadb_cnf_contents[1000];
-  FILE *fptr;
-  if ((fptr = fopen(result.argv[1], "r")) == NULL) {
-      cout << "Error! File mariadb.txt cannot be opened." << endl;
-      return EXIT_FAILURE;
-  }
-  cout << "Printing contents of " << result.argv[1] << ": ";
-  while (fgets(mariadb_cnf_contents,1000,fptr) != NULL){
+  ifstream fin(result.argv[1]);
+  string mariadb_cnf_contents;
+
+  cout << "Contents of: " << result.argv[1] << endl;
+  while (fin >> mariadb_cnf_contents){
       cout << mariadb_cnf_contents << endl;
   }
-  fclose(fptr);
 
   invokemain();
   return EXIT_SUCCESS;
