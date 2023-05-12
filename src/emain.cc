@@ -94,7 +94,7 @@ int emain() {
       cout << "Error! File " + result.argv[1] + " cannot be opened." << endl;
       return EXIT_FAILURE;
   }
-  if (fgets(mariadb_cnf_contents,1000,fptr) != NULL){
+  while (fgets(mariadb_cnf_contents,1000,fptr)){
       cout << mariadb_cnf_contents << endl;
   }
   fclose(fptr);
