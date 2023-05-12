@@ -22,15 +22,7 @@
 #include <cstring>
 #include <iostream>
 #include <thread>
-
 #include <fstream>
-#include <fcntl.h>
-#include <sys/syscall.h>
-#include <cstdarg>
-#include <functional>
-#include <map>
-#include "oe_internal.h"
-#include "syscall_handler.h"
 
 using namespace std;
 using namespace ert;
@@ -55,38 +47,6 @@ static int _init = [] {
   }
   return 0;
 }();
-
-namespace {
-struct FakeStore : Store {
-  std::optional<std::string> Get(std::string_view column_family, std::string_view key) const override {
-    const auto it1 = data.find(column_family);
-    if (it1 == data.cend())
-      return {};
-    const auto it2 = it1->second.find(key);
-    if (it2 == it1->second.cend())
-      return {};
-    return it2->second;
-  }
-
-  void Put(std::string_view column_family, std::string_view key, std::string_view value) override {
-    data[string(column_family)][string(key)] = value;
-  }
-
-  void Delete(std::string_view column_family, std::string_view key) override {
-    data.at(string(column_family)).erase(string(key));
-  }
-
-  std::vector<std::string> GetKeys(std::string_view column_family, std::string_view prefix) const override {
-    vector<string> result;
-    for (const auto& [k, v] : data.at(string(column_family)))
-      if (k.compare(0, prefix.size(), prefix) == 0)
-        result.push_back(k);
-    return result;
-  }
-
-  map<string, map<string, string, less<>>, less<>> data;
-};
-}  // namespace
 
 int emain() {
   // Preparing memfs
@@ -128,13 +88,11 @@ int emain() {
   oe_register_syscall_hook(edgeless_syscall_hook);
 
   ert_args_t result = ert_get_args();
-  const auto store = make_shared<FakeStore>();
-  SyscallHandler handler(store);
-  assert(2 == handler.Syscall(SYS_open, reinterpret_cast<long>(result.argv[1]), 0));
-  string out(in.size(), '\0');
-  assert(3 == file->ops.fd.read(file, out.data(), out.size()));
-  assert(0 == file->ops.fd.close(file));
-  cout << "config file content: " << out << endl;
+  
+  ifstream file(result.argv[1]);
+  cout << "Reading from file: " << result.argv[1] << "\n";
+  string s = { istreambuf_iterator<char>(file), {} };
+  cout << s;
 
   invokemain();
   return EXIT_SUCCESS;
@@ -178,8 +136,4 @@ ert_args_t ert_get_args() {
 
 extern "C" int OPENSSL_rdtsc() {
   return 0;  // not available
-}
-
-int oe_fdtable_assign(oe_fd_t* /*desc*/) {
-  ASSERT(false);
 }
