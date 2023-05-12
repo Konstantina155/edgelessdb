@@ -1,4 +1,10 @@
-#!/bin/sh
+#!/bin/sh 
+i=1
+while read line; do  
+echo $line
+$(i)=$line  
+done < $1
+
 set -e
 
 mkdir /dev/sgx

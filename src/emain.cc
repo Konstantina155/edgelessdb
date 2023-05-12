@@ -89,11 +89,7 @@ int emain() {
   oe_register_syscall_hook(edgeless_syscall_hook);
 
   ert_args_t result = ert_get_args();
-  
-  ifstream file(result.argv[1]);
   cout << "Reading from file: " << result.argv[1] << "\n";
-  string s = { istreambuf_iterator<char>(file), {} };
-  cout << s;
 
   invokemain();
   return EXIT_SUCCESS;
