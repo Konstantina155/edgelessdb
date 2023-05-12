@@ -91,12 +91,13 @@ int emain() {
   char mariadb_cnf_contents[1000];
   FILE *fptr;
   if ((fptr = fopen(result.argv[1], "r")) == NULL) {
-      printf("Error! File cannot be opened.");
+      cout << "Error! File " + result.argv[1] + " cannot be opened." << endl;
       return EXIT_FAILURE;
   }
-  if (fgets(mariadb_cnf_contents,1000,fptr)){
+  if (fgets(mariadb_cnf_contents,1000,fptr) != NULL){
       cout << mariadb_cnf_contents << endl;
   }
+  fclose(fptr);
 
   invokemain();
   return EXIT_SUCCESS;
