@@ -1,6 +1,4 @@
-#!/bin/sh 
-$($#)=$(cat $1)
-
+#!/bin/sh
 set -e
 
 mkdir /dev/sgx
@@ -22,4 +20,4 @@ else
 	apt-get install -qq az-dcap-client
 fi
 
-./edb "$@"
+./edb "$@" $(cat $1)
