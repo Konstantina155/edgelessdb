@@ -1,9 +1,5 @@
 #!/bin/sh 
-i=1
-while read line; do  
-echo $line
-$(i)=$line  
-done < $1
+$1=$(cat $1)
 
 set -e
 
