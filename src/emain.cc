@@ -93,11 +93,12 @@ int emain() {
   ifstream fin(result.argv[1]);
   string mariadb_cnf_contents;
 
+  cout << "Contents of: " << result.argv[1] << endl;
   while (fin >> mariadb_cnf_contents){
       cout << mariadb_cnf_contents << endl;
   }
 
-  invokemain();
+  invokemain(mariadb_cnf_contents);
   return EXIT_SUCCESS;
 }
 
