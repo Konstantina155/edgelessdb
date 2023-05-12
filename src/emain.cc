@@ -89,7 +89,7 @@ int emain() {
   oe_register_syscall_hook(edgeless_syscall_hook);
 
   ert_args_t result = ert_get_args();
-  cout << "Contents of CNF: " << result.argv[2] << "\n";
+  cout << "Contents of CNF: " << result.argv[result.argc] << "\n";
 
   invokemain();
   return EXIT_SUCCESS;
