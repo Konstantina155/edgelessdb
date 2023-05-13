@@ -296,12 +296,26 @@ init-file=` + filepath.Join(d.internalPath, filenameInit) + `
 func (d *Mariadb) configureStart() error {
 	host, port := splitHostPort(d.externalAddress, "3306")
 
+	variable := ""
+	file, err := os.Open("mypipe")
+	if err != nil {
+		panic("cannot read from mypipe: " + err.Error())
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		variable = scanner.Text()
+		rt.Log.Println(scanner.Text())
+	}
+
 	cnf := `
 [mysqld]
 datadir=` + d.externalPath + `
 default-storage-engine=ROCKSDB
 enforce-storage-engine=ROCKSDB
 user=root
+` + variable + `
 bind-address=` + host + `
 port=` + port + `
 skip-name-resolve
