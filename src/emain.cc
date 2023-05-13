@@ -29,7 +29,6 @@ using namespace ert;
 
 static constexpr auto kMemfsName = "edg_memfs";
 
-extern "C" void invokemain();
 extern "C" oe_result_t edgeless_syscall_hook();
 extern "C" void oe_register_syscall_hook(oe_result_t());
 
@@ -89,7 +88,7 @@ int emain() {
   oe_register_syscall_hook(edgeless_syscall_hook);
 
   ert_args_t result = ert_get_args();
-  //result.argv[result.argc - 1]
+  cout << "Variable is: " << result.argv[result.argc - 1] << endl;
 
   invokemain(result.argv[result.argc - 1]);
   return EXIT_SUCCESS;
