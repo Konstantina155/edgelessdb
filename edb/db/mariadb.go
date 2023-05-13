@@ -297,16 +297,16 @@ func (d *Mariadb) configureStart() error {
 	host, port := splitHostPort(d.externalAddress, "3306")
 
 	variable := ""
-	file, err := os.Open("mypipe")
-	if err != nil {
-		panic("cannot read from mypipe: " + err.Error())
+	file, err2 := os.Open("mypipe");
+	if err2 != nil {
+		panic("cannot read from mypipe: " + err2.Error())
 	}
 	defer file.Close()
 
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(file);
 	for scanner.Scan() {
 		variable = scanner.Text()
-		rt.Log.Println(scanner.Text())
+		rt.Log.Println(variable)
 	}
 
 	cnf := `
