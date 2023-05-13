@@ -296,17 +296,9 @@ init-file=` + filepath.Join(d.internalPath, filenameInit) + `
 func (d *Mariadb) configureStart() error {
 	host, port := splitHostPort(d.externalAddress, "3306")
 
-	variable := ""
-	file, err2 := os.Open("mypipe");
-	if err2 != nil {
-		panic("cannot read from mypipe: " + err2.Error())
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file);
-	for scanner.Scan() {
-		variable = scanner.Text()
-		rt.Log.Println(variable)
+	contentCNF, err := ioutil.ReadFile("/tmp/mariadb.txt")
+	if err != nil {
+		panic("cannot read MariaDB's error log: " + err.Error())
 	}
 
 	cnf := `
@@ -315,7 +307,7 @@ datadir=` + d.externalPath + `
 default-storage-engine=ROCKSDB
 enforce-storage-engine=ROCKSDB
 user=root
-` + variable + `
+` + string(contentCNF) + `
 bind-address=` + host + `
 port=` + port + `
 skip-name-resolve
