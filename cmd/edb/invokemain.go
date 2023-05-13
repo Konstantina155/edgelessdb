@@ -30,15 +30,15 @@ func invokemain() {
 		panic(err)
 	}
 
-    if file, err := os.Open("mypipe"); err != nil {
-        panic(err)
-    }
-    defer file.Close()
+    // if file, err := os.Open("mypipe"); err != nil {
+    //     panic(err)
+    // }
+    // defer file.Close()
 
-    scanner := bufio.NewScanner(file)
-    for scanner.Scan() {
-        rt.Log.Println(scanner.Text())
-    }
+    // scanner := bufio.NewScanner(file)
+    // for scanner.Scan() {
+    //     rt.Log.Println(scanner.Text())
+    // }
 	
 	main()
 }
