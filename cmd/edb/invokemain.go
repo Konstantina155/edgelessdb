@@ -20,12 +20,12 @@ import "C"
 import "github.com/edgelesssys/edgelessdb/edb/rt"
 
 //export invokemain
-func invokemain(mariadbCNF *C.char) {
+func invokemain() {
 	// Save original stdout & stderr before we ever launch MariaDB, as MariaDB will redirect it later on
 	if err := rt.SaveStdoutAndStderr(); err != nil {
 		panic(err)
 	}
-	rt.Log.Printf("Content of cnf is: %s\n", mariadbCNF)
+	rt.Log.Printf("Inside invokemain.go func")
 	
 	main()
 }
