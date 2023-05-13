@@ -90,7 +90,7 @@ int emain() {
 
   ert_args_t result = ert_get_args();
   cout << "Contents of argv:" << result.argc << "\n";
-  for (int i=0; i<result.argc; i++):
+  for (int i=0; i<result.argc; i++)
     cout << result.argv[i] << "\n";
 
   invokemain();
