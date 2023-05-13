@@ -17,10 +17,6 @@ package main
 
 // extern int edgeless_exit_ensure_link;
 import "C"
-import (
-	"bufio"
-	"os"
-)
 import "github.com/edgelesssys/edgelessdb/edb/rt"
 
 //export invokemain
@@ -29,16 +25,6 @@ func invokemain() {
 	if err := rt.SaveStdoutAndStderr(); err != nil {
 		panic(err)
 	}
-
-    // if file, err := os.Open("mypipe"); err != nil {
-    //     panic(err)
-    // }
-    // defer file.Close()
-
-    // scanner := bufio.NewScanner(file)
-    // for scanner.Scan() {
-    //     rt.Log.Println(scanner.Text())
-    // }
 	
 	main()
 }
