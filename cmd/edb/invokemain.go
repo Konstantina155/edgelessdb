@@ -17,15 +17,28 @@ package main
 
 // extern int edgeless_exit_ensure_link;
 import "C"
+import (
+	"bufio"
+	"os"
+)
 import "github.com/edgelesssys/edgelessdb/edb/rt"
 
 //export invokemain
-func invokemain(str *C.char) {
+func invokemain() {
 	// Save original stdout & stderr before we ever launch MariaDB, as MariaDB will redirect it later on
 	if err := rt.SaveStdoutAndStderr(); err != nil {
 		panic(err)
 	}
-	rt.Log.Printf("Inside invokemain.go func %s", C.GoString(str))
+
+    if file, err := os.Open("mypipe"); err != nil {
+        panic(err)
+    }
+    defer file.Close()
+
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+        rt.Log.Println(scanner.Text())
+    }
 	
 	main()
 }
