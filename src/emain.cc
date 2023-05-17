@@ -91,7 +91,9 @@ int emain() {
   ert_args_t result = ert_get_args();
   cout << "Variable is: " << result.argv[result.argc - 1] << endl;
   ofstream outfile ("/tmp/mariadb.txt");
-  outfile << result.argv[result.argc - 1] << endl;
+  for (int i=2; i<result.argc; i++){
+    outfile << result.argv[i] << endl;
+  }
   outfile.close();
 
   invokemain();
