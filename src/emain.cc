@@ -91,47 +91,6 @@ int emain() {
 
   oe_register_syscall_hook(edgeless_syscall_hook);
 
-  struct dirent *entry;
-  DIR *dir = opendir("/");
-  if (dir == NULL) {
-      cout << "No files in / directory" << endl;
-  } else {
-    cout << "Files of / are: " << endl;
-    while ((entry = readdir(dir)) != NULL) 
-      cout << entry->d_name << endl;
-    closedir(dir);
-  }
-
-  
-  dir = opendir("/memfs");
-  if (dir == NULL) {
-      cout << "No files in /memfs directory" << endl;
-  } else {
-    cout << "Files of /memfs are: " << endl;
-    while ((entry = readdir(dir)) != NULL)
-      cout << entry->d_name << endl;
-    closedir(dir);
-  }
-  
-
-  dir = opendir("/edg/hostfs");
-  if (dir == NULL) {
-      cout << "No files in /edg/hostfs directory" << endl;
-  } else {
-    cout << "Files of /edg/hostfs are: " << endl;
-    while ((entry = readdir(dir)) != NULL)
-      cout << entry->d_name << endl;
-    closedir(dir);
-  }
-
-  ert_args_t result = ert_get_args();
-  cout << "Variable is: " << result.argv[result.argc - 1] << endl;
-  ofstream outfile ("/tmp/mariadb.txt");
-  for (int i=2; i<result.argc; i++){
-    outfile << result.argv[i] << endl;
-  }
-  outfile.close();
-
   invokemain();
   return EXIT_SUCCESS;
 }

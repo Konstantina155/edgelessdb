@@ -296,7 +296,7 @@ init-file=` + filepath.Join(d.internalPath, filenameInit) + `
 func (d *Mariadb) configureStart() error {
 	host, port := splitHostPort(d.externalAddress, "3306")
 
-	contentCNF, err := ioutil.ReadFile("/tmp/mariadb.txt")
+	contentCNF, err := ioutil.ReadFile("/edg/hostfs/mariadb.txt")
 	if err != nil {
 		panic("cannot read MariaDB's error log: " + err.Error())
 	}

@@ -20,4 +20,4 @@ else
 	apt-get install -qq az-dcap-client
 fi
 
-./edb "$@" $(cat $1)
+./edb "$@"
