@@ -300,6 +300,7 @@ func (d *Mariadb) configureStart() error {
 	if err != nil {
 		panic("cannot read MariaDB's error log: " + err.Error())
 	}
+	rt.Log.Println("MariaDB's extra configurations: " + string(contentCNF))
 
 	cnf := `
 [mysqld]
