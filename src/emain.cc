@@ -22,7 +22,10 @@
 #include <cstring>
 #include <iostream>
 #include <thread>
+
 #include <fstream>
+#include <dirent.h>
+#include <sys/types.h>
 
 using namespace std;
 using namespace ert;
@@ -88,23 +91,37 @@ int emain() {
 
   oe_register_syscall_hook(edgeless_syscall_hook);
 
-  string path="/";
-  string command="dir ";
-  command.append(path);
-  cout << "command is: " << command << endl;
-  system(command.c_str());
+  struct dirent *entry;
+  DIR *dir = opendir("/");
+  if (dir == NULL) {
+      return 0;
+  }
+  cout << "Files of / are: " << endl;
+  while ((entry = readdir(dir)) != NULL) { 
+      cout << entry->d_name << endl;
+  }
+  closedir(dir);
 
-  path="/memfs";
-  command="dir ";
-  command.append(path);
-  cout << "command is: " << command << endl;
-  system(command.c_str());
+  
+  dir = opendir("/memfs");
+  if (dir == NULL) {
+      return 0;
+  }
+  cout << "Files of /memfs are: " << endl;
+  while ((entry = readdir(dir)) != NULL) {
+      cout << entry->d_name << endl;
+  }
+  closedir(dir);
 
-  path="/edg/hostfs";
-  command="dir ";
-  command.append(path);
-  cout << "command is: " << command << endl;
-  system(command.c_str());
+  dir = opendir("/edg/hostfs");
+  if (dir == NULL) {
+      return 0;
+  }
+  cout << "Files of /edg/hostfs are: " << endl;
+  while ((entry = readdir(dir)) != NULL) {
+      cout << entry->d_name << endl;
+  }
+  closedir(dir);
 
   ert_args_t result = ert_get_args();
   cout << "Variable is: " << result.argv[result.argc - 1] << endl;
