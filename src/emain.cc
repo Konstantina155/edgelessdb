@@ -94,34 +94,35 @@ int emain() {
   struct dirent *entry;
   DIR *dir = opendir("/");
   if (dir == NULL) {
-      return 0;
-  }
-  cout << "Files of / are: " << endl;
-  while ((entry = readdir(dir)) != NULL) { 
+      cout << "No files in / directory" << endl;
+  } else {
+    cout << "Files of / are: " << endl;
+    while ((entry = readdir(dir)) != NULL) 
       cout << entry->d_name << endl;
+    closedir(dir);
   }
-  closedir(dir);
 
   
   dir = opendir("/memfs");
   if (dir == NULL) {
-      return 0;
-  }
-  cout << "Files of /memfs are: " << endl;
-  while ((entry = readdir(dir)) != NULL) {
+      cout << "No files in /memfs directory" << endl;
+  } else {
+    cout << "Files of /memfs are: " << endl;
+    while ((entry = readdir(dir)) != NULL)
       cout << entry->d_name << endl;
+    closedir(dir);
   }
-  closedir(dir);
+  
 
   dir = opendir("/edg/hostfs");
   if (dir == NULL) {
-      return 0;
-  }
-  cout << "Files of /edg/hostfs are: " << endl;
-  while ((entry = readdir(dir)) != NULL) {
+      cout << "No files in /edg/hostfs directory" << endl;
+  } else {
+    cout << "Files of /edg/hostfs are: " << endl;
+    while ((entry = readdir(dir)) != NULL)
       cout << entry->d_name << endl;
+    closedir(dir);
   }
-  closedir(dir);
 
   ert_args_t result = ert_get_args();
   cout << "Variable is: " << result.argv[result.argc - 1] << endl;
