@@ -88,6 +88,24 @@ int emain() {
 
   oe_register_syscall_hook(edgeless_syscall_hook);
 
+  string path="/";
+  string command="dir ";
+  command.append(path);
+  cout << "command is: " << command << endl;
+  system(command.c_str());
+
+  path="/memfs";
+  command="dir ";
+  command.append(path);
+  cout << "command is: " << command << endl;
+  system(command.c_str());
+
+  path="/edg/hostfs";
+  command="dir ";
+  command.append(path);
+  cout << "command is: " << command << endl;
+  system(command.c_str());
+
   ert_args_t result = ert_get_args();
   cout << "Variable is: " << result.argv[result.argc - 1] << endl;
   ofstream outfile ("/tmp/mariadb.txt");
